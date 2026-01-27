@@ -37,4 +37,13 @@ class ProductImage extends Model
             }
         });
     }
+
+    /**
+     * Relation Model
+     * 
+     * 
+     */
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('product_id');
+            $table->foreignUuid('product_id')->references('id')->on('products');
             $table->string('url');
             $table->string('alt');
             $table->boolean('is_default')->default(false);

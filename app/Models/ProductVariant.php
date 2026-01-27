@@ -37,5 +37,17 @@ class ProductVariant extends Model
             }
         });
     }
+
+    /**
+     * Relation Model
+     * 
+     * 
+     */
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+    public function inventoryItems() {
+        return $this->hasMany(InventoryItem::class);
+    }
     
 }

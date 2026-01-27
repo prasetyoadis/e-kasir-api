@@ -37,4 +37,22 @@ class InventoryLog extends Model
             }
         });
     }
+
+    /**
+     * Relation Model
+     * 
+     * 
+     */
+    public function inventoryItem()
+    {
+        return $this->belongsTo(InventoryItem::class);
+    }
+
+    public function outlet() {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

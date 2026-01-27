@@ -11,6 +11,9 @@ use App\Services\User\CreateUserService;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\CurrentUserResource;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
+
 
 class UserController extends BaseApiController
 {
@@ -29,6 +32,26 @@ class UserController extends BaseApiController
         return $this->successGetData(
             message: 'Request processed successfully',
             data: new CurrentUserResource($currentUser)
+        );
+    }
+
+    public function setActiveOutlet(Request $request)
+    {
+        $outletId = $request->validate([
+            'outlet_id' => 'required|exists:outlets,id'
+        ])['outlet_id'];
+        
+        $userId = JWTAuth::parseToken()->getPayload()->get('sub');
+
+        Cache::put(
+            key: "active_outlet:user:{$userId}",
+            value: $outletId,
+            ttl: now()->addHours(8)
+        );
+
+        return $this->successCreateData(
+            message: 'Active outlet set successfully',
+            data: ['outlet_id' => $outletId]
         );
     }
 
@@ -86,7 +109,7 @@ class UserController extends BaseApiController
      */
     public function show(User $user)
     {
-        $user->loadMissing(['roles', 'subscriptions', 'subscriptions.outlets']);
+        $user->loadMissing(['roles','subscriptions.outlets']);
         return $this->successGetData(
             message: 'Request processed successfully',
             data: new UserResource($user)

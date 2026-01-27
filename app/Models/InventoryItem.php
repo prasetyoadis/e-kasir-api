@@ -37,4 +37,26 @@ class InventoryItem extends Model
             }
         });
     }
+
+
+    /**
+     * Relation Model
+     * 
+     * 
+     */
+    public function variant() {
+        return $this->belongsTo(
+            ProductVariant::class,
+            'product_variant_id'
+        );
+    }
+
+    public function outlet() {
+        return $this->belongsTo(Outlet::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(InventoryLog::class);
+    }
 }

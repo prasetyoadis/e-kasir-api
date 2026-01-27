@@ -139,7 +139,7 @@ class BaseApiController extends Controller
         return response()->json([
             'statusCode' => $code,
             'statusMessage' => 'OK',
-            'statusDescription' => $message,
+            'statusDescription' => 'Request processed successfully',
             'result' => [
                 'data' => $data,
             ]

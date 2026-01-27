@@ -15,11 +15,13 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('created_by')->constrained('users');
             $table->foreignUuid('outlet_id');
-            $table->foreignUuid('inventory_item_id');
+            $table->foreignUuid('inventory_item_id')->references('id')->on('inventory_items');
             $table->integer('quantity')->nullable();
             $table->enum('type', ['in', 'out', 'correction']);
             $table->text('note')->nullable();
             $table->timestamps();
+
+            $table->unique(['outlet_id', 'inventory_item_id']);
         });
     }
 

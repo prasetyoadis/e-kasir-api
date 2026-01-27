@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class Category extends Model
@@ -36,5 +37,23 @@ class Category extends Model
                 $model->id = (string) Str::uuid();
             }
         });
+    }
+
+    /**
+     * Relation Model
+     * 
+     * 
+     */
+    public function products() {
+        return $this->belongsToMany(
+            Category::class, 
+            'category_product', 
+            'category_id', 
+            'product_id'
+        )->withTimestamps();
+    }
+
+    public function outlet() {
+        return $this->belongsTo(Outlet::class);
     }
 }

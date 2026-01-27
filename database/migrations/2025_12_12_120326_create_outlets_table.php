@@ -17,13 +17,22 @@ return new class extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('msisdn')->nullable();
+            $table->enum('type', ['fnb', 'retail', 'service', 'pharmacy', 'market']);
             $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::create('outlet_subscription', function (Blueprint $table) {
             $table->foreignUuid('subscription_id');
             $table->foreignUuid('outlet_id');
+            $table->timestamps();
+        });
+
+        Schema::create('outlet_user', function (Blueprint $table) {
+            $table->foreignUuid('user_id');
+            $table->foreignUuid('outlet_id');
+            $table->foreignUuid('role_id');
             $table->timestamps();
         });
     }

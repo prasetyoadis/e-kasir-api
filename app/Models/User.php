@@ -65,15 +65,35 @@ class User extends Authenticatable implements JWTSubject
      * 
      */
     public function roles() {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+        return $this->belongsToMany(
+            Role::class, 
+            'role_user', 
+            'user_id', 
+            'role_id'
+        )->withTimestamps();
     }
     public function subscriptions() {
-        return $this->belongsToMany(Subscription::class, 'subscription_user', 'user_id', 'subscription_id');
+        return $this->belongsToMany(
+            Subscription::class, 
+            'subscription_user', 
+            'user_id', 
+            'subscription_id'
+        )->withTimestamps();
     }
-    public function outlets() {
+    # Relasi tabel outlets jika user adalah owner
+    public function ownedOutlets() {
         return $this->hasMany(Outlet::class, 'owner_id');
     }
-
+    # Relasi tabel outlets jika user adalah karyawan
+    public function outlets()
+    {
+        return $this->belongsToMany(
+            Outlet::class,
+            'outlet_user',
+            'user_id',
+            'outlet_id'
+        )->using(OutletUser::class)->withPivot('role_id')->withTimestamps();
+    }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

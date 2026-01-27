@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Product;
 
+use App\Models\Product;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginAuthRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create', Product::class);
     }
 
     /**
@@ -26,9 +27,18 @@ class LoginAuthRequest extends FormRequest
     {
         return [
             //
-            'email' => 'required|email',
-            // 'username' => 'required|min:3',
-            'password' => 'required|min:5'
+            'sku' => 'required|string|max:50|unique:products,sku',
+            'name' => 'required|string|max:150',
+            'description' => 'nullable|string',
+            'base_price' => 'required|numeric|min:0',
+            'categories' => 'required|array|min:1',
+            'categories.*' => 'exists:categories,id',
+            'images' => 'required|array',
+            'images.*.file' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'variants' => 'nullable|array',
+            'variants.*.variant_name' => 'required|string|max:100',
+            'variants.*.description' => 'nullable|string',
+            'variants.*.price' => 'required|numeric|min:0'
         ];
     }
 
@@ -46,7 +56,7 @@ class LoginAuthRequest extends FormRequest
                 'statusMessage' => 'Unprocessable Entity',
                 'statusDescription' => 'Validation failed for the given request',
                 'result' => [
-                    'errorCode' => '020',
+                    'errorCode' => '21',
                     'errorMessage' => 'Validation failed',
                     'errors' => $validator->errors(),
                 ],

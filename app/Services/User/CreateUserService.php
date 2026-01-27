@@ -14,17 +14,10 @@ class CreateUserService
             $user = User::create($data);
             
             # Assign role
-            if (!empty($data['roles'])) {
-                $user->roles()->sync($data['roles']);
-            }
+            if (!empty($data['roles'])) $user->roles()->sync($data['roles']);
 
             # Assign subscriptions
-            if (!empty($data['outlets'])) {
-                $user->assignSubscriptionByOutlet(
-                    ownerId: (string) $ownerId,
-                    outletIds: $data['outlets']
-                );
-            }
+            if (!empty($data['outlets'])) $user->assignSubscriptionByOutlet(ownerId: (string) $ownerId, outletIds: $data['outlets']);
 
             return $user->loadMissing(['roles', 'subscriptions', 'subscriptions.outlets']);
         });

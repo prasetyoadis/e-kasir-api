@@ -44,10 +44,32 @@ class Outlet extends Model
      * 
     */
     public function subscriptions() {
-        return $this->belongsToMany(Subscription::class, 'outlet_subscription', 'outlet_id', 'subscription_id');
+        return $this->belongsToMany(
+            Subscription::class, 
+            'outlet_subscription', 
+            'outlet_id', 
+            'subscription_id'
+        )->withTimestamps();
     }
     public function owner() {
         return $this->belongsTo(User::class);
     }
-
+    public function employees() {
+        return $this->belongsToMany(
+            User::class,
+            'outlet_user',
+            'outlet_id',
+            'user_id'
+        )
+        ->using(OutletUser::class)->withPivot('role_id')->withTimestamps();
+    }
+    public function categories() {
+        return $this->hasMany(Category::class);
+    }
+    public function inventories() {
+        return $this->hasMany(InventoryItem::class);
+    }
+    public function Invenlogs() {
+        return $this->hasMany(InventoryLog::class);
+    }
 }

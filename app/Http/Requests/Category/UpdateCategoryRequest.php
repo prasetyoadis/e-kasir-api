@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Category;
 
+use App\Models\Category;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginAuthRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('update', Category::class);
     }
 
     /**
@@ -25,10 +26,8 @@ class LoginAuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            'email' => 'required|email',
-            // 'username' => 'required|min:3',
-            'password' => 'required|min:5'
+            'name' => 'required|string',
+            'description' => 'nullable|string'
         ];
     }
 
@@ -46,7 +45,7 @@ class LoginAuthRequest extends FormRequest
                 'statusMessage' => 'Unprocessable Entity',
                 'statusDescription' => 'Validation failed for the given request',
                 'result' => [
-                    'errorCode' => '020',
+                    'errorCode' => '21',
                     'errorMessage' => 'Validation failed',
                     'errors' => $validator->errors(),
                 ],

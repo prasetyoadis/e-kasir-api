@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('outlet_id');
             $table->string('name');
+            $table->string('slug');
             $table->text('description')->nullable();
             $table->timestamps();
+
+            $table->unique(['outlet_id', 'slug']);
         });
 
         Schema::create('category_product', function (Blueprint $table) {

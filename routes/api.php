@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OutletController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -22,6 +26,7 @@ Route::middleware('jwt.auth')->group(function () {
 
         Route::middleware(['subscription'])->group(function () {
             Route::get('/users/current', [UserController::class, 'current']);
+            Route::get('/users/set-outlet', [UserController::class, 'setOutlet']);
             
             Route::middleware(['permission'])->group(function () {
                 Route::apiResource('/users', UserController::class)
@@ -52,6 +57,23 @@ Route::middleware('jwt.auth')->group(function () {
                     ]);
                 Route::patch('/outlets/{outlet}/deactivate', [UserController::class, 'deactivate'])->name('outlet.update');
                 Route::patch('/outlets/{outlet}/activate', [UserController::class, 'activate'])->name('outlet.update');
+                
+                Route::apiResource('/categories', CategoryController::class)
+                    ->names([
+                        'index'   => 'category.view',
+                        'show'    => 'category.view',
+                        'store'   => 'category.create',
+                        'update'  => 'category.update',
+                        'destroy' => 'category.delete',
+                    ]);
+                Route::apiResource('/products', ProductController::class)
+                    ->names([
+                        'index'   => 'product.view',
+                        'show'    => 'product.view',
+                        'store'   => 'product.create',
+                        'update'  => 'product.update',
+                        'destroy' => 'product.delete',
+                    ]);
             });
         });
     });
