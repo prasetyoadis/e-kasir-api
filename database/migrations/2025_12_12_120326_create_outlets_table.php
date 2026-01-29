@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('outlets', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->ulid('id')->primary();
             $table->foreignUuid('owner_id')->constrained('users');
             $table->string('name');
             $table->string('address')->nullable();
@@ -24,15 +24,15 @@ return new class extends Migration
         });
 
         Schema::create('outlet_subscription', function (Blueprint $table) {
-            $table->foreignUuid('subscription_id');
-            $table->foreignUuid('outlet_id');
+            $table->foreignUlid('subscription_id');
+            $table->foreignUlid('outlet_id');
             $table->timestamps();
         });
 
         Schema::create('outlet_user', function (Blueprint $table) {
             $table->foreignUuid('user_id');
-            $table->foreignUuid('outlet_id');
-            $table->foreignUuid('role_id');
+            $table->foreignUlid('outlet_id');
+            $table->foreignUlid('role_id');
             $table->timestamps();
         });
     }

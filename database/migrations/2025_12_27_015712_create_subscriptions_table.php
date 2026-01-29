@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->ulid('id')->primary();
             $table->foreignUuid('user_id');
             $table->integer('subscription_type');
             $table->enum('subscription_status', ['active','pending','inactive']);
@@ -22,7 +22,7 @@ return new class extends Migration
         });
 
         Schema::create('subscription_user', function (Blueprint $table) {
-            $table->foreignUuid('subscription_id');
+            $table->foreignUlid('subscription_id');
             $table->foreignUuid('user_id');
             $table->timestamps();
         });

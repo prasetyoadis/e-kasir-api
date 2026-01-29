@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transaction_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('transaction_id');
-            $table->foreignUuid('product_variant_id');
+            $table->foreignUlid('product_variant_id');
             $table->integer('quantity');
             $table->bigInteger('price');
             $table->bigInteger('total');

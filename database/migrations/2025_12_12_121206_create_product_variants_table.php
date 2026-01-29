@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_variants', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('product_id')->references('id')->on('products');
+            $table->ulid('id')->primary();
+            $table->foreignUlid('product_id')->references('id')->on('products');
             $table->string('variant_name');
             $table->text('description')->nullable();
             $table->bigInteger('price')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_variant')->default(false);
+            $table->timestamps();
         });
     }
 

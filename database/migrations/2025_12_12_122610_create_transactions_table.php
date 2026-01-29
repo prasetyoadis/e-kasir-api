@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('order_num')->unique();
             $table->foreignUuid('created_by')->constrained('users');
-            $table->foreignUuid('outlet_id');
+            $table->foreignUlid('outlet_id');
             $table->string('costumer_name');
             $table->string('costumer_phone')->nullable();
             $table->string('costumer_address')->nullable();

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\SubscriptionType;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Carbon;
@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class Subscription extends Model
 {
-    use HasUuids;
+    use HasUlids;
 
     /**
      * The attributes that are mass protecable.
@@ -27,19 +27,6 @@ class Subscription extends Model
      * @var String
      */
     public $incrementing = false;
-
-    /**
-     * Fungsi ketika model Eloquent selesai dimuat.
-     *
-     */
-    protected static function booted()
-    {
-        static::creating(function ($model) {
-            if (empty($model->id)) {
-                $model->id = (string) Str::uuid();
-            }
-        });
-    }
 
     /**
      * Get the attributes that should be cast.

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_logs', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->ulid('id')->primary();
             $table->foreignUuid('created_by')->constrained('users');
-            $table->foreignUuid('outlet_id');
-            $table->foreignUuid('inventory_item_id')->references('id')->on('inventory_items');
+            $table->foreignUlid('outlet_id');
+            $table->foreignUlid('inventory_item_id')->references('id')->on('inventory_items');
             $table->integer('quantity')->nullable();
             $table->enum('type', ['in', 'out', 'correction']);
             $table->text('note')->nullable();

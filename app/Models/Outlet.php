@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -9,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Outlet extends Model
 {
-    use HasUuids;
+    use HasUlids;
 
     /**
      * The attributes that are mass protecable.
@@ -25,19 +26,6 @@ class Outlet extends Model
      * @var bool
      */
     public $incrementing = false;
-
-    /**
-     * Fungsi ketika model Eloquent selesai dimuat.
-     *
-     */
-    protected static function booted()
-    {
-        static::creating(function ($model) {
-            if (empty($model->id)) {
-                $model->id = (string) Str::uuid();
-            }
-        });
-    }
 
     /**
      * Relation Model

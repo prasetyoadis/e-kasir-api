@@ -12,19 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('outlet_id');
+            $table->ulid('id')->primary();
+            $table->foreignUlid('outlet_id');
             $table->string('name');
             $table->string('slug');
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->unique(['outlet_id', 'slug']);
         });
 
         Schema::create('category_product', function (Blueprint $table) {
-            $table->foreignUuid('product_id');
-            $table->foreignUuid('category_id');
+            $table->foreignUlid('product_id');
+            $table->foreignUlid('category_id');
             $table->timestamps();
         });
     }

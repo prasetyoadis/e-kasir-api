@@ -12,14 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_items', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('outlet_id');
-            $table->string('name');
-            $table->string('slug');
-            $table->text('description')->nullable();
+            $table->ulid('id')->primary();
+            $table->foreignUlid('outlet_id');
+            $table->foreignUlid('product_variant_id')->references('id')->on('product_variants');;
+            $table->integer('current_stock')->nullable();
+            $table->integer('min_stock')->nullable();
             $table->timestamps();
-
-            $table->unique(['outlet_id', 'slug']);
         });
     }
 
