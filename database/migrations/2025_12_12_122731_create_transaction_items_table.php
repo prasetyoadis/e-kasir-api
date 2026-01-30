@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('transaction_id');
             $table->foreignUlid('product_variant_id');
             $table->integer('quantity');
-            $table->bigInteger('price');
+            $table->bigInteger('harga_jual');
             $table->bigInteger('total');
             $table->text('note')->nullable();
             $table->timestamps();

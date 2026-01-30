@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->enum('type', ['in', 'out', 'correction']);
             $table->text('note')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->unique(['outlet_id', 'inventory_item_id']);

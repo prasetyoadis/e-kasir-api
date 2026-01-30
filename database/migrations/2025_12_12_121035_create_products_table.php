@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('sku')->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->bigInteger('base_price')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_variant')->default(false);
             $table->softDeletes();

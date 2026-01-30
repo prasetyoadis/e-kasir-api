@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignUlid('product_variant_id')->references('id')->on('product_variants');;
             $table->integer('current_stock')->nullable();
             $table->integer('min_stock')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

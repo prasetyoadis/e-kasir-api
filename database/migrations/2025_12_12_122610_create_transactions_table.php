@@ -17,11 +17,9 @@ return new class extends Migration
             $table->foreignUuid('created_by')->constrained('users');
             $table->foreignUlid('outlet_id');
             $table->string('costumer_name');
-            $table->string('costumer_phone')->nullable();
-            $table->string('costumer_address')->nullable();
-            $table->decimal('subtotal', 25, 2)->default(0);
-            $table->decimal('discount', 25, 2)->default(0);
-            $table->decimal('tax', 25, 2)->default(0);
+            $table->bigInteger('discount')->default(0);
+            $table->bigInteger('tax')->default(0);
+            $table->bigInteger('subtotal')->default(0);
             $table->enum('payment_method', ['cash','qris','transfer','invoice'])->nullable();
             $table->enum('status', ['pending','paid','canceled','refunded'])->default('pending');
             $table->timestamps();
