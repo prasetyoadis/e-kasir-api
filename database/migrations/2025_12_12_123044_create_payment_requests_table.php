@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payment_requests', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('transaction_id');
-            $table->foreignUuid('payment_method_id');
+            $table->ulid('id')->primary();
+            $table->foreignUlid('transaction_id');
+            $table->foreignUlid('payment_method_id');
             $table->bigInteger('amount');
-            $table->enum('status', ['pending','waiting','paid','failed','expired']);
-            $table->string('external_id');
-            $table->string('external_payment_url');
+            $table->enum('status', ['PENDING','WAITING','PAID','FAILED','EXPIRED']);
+            $table->string('external_id')->nullable();
+            $table->string('external_payment_url')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });

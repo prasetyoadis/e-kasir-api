@@ -90,7 +90,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(
             Outlet::class,
             'outlet_user',
-            'user_id',
+            'employee_id',
             'outlet_id'
         )->using(OutletUser::class)->withPivot('role_id')->withTimestamps();
     }

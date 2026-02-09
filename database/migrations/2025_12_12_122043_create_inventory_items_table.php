@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('min_stock')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['outlet_id', 'product_variant_id']);
         });
     }
 

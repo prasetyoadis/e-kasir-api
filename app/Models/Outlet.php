@@ -47,7 +47,7 @@ class Outlet extends Model
             User::class,
             'outlet_user',
             'outlet_id',
-            'user_id'
+            'employee_id'
         )
         ->using(OutletUser::class)->withPivot('role_id')->withTimestamps();
     }

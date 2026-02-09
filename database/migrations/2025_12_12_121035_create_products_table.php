@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('outlet_id')->references('id')->on('outlets');
-            $table->string('sku')->unique();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_variant')->default(false);

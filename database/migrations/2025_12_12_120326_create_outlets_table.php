@@ -30,7 +30,7 @@ return new class extends Migration
         });
 
         Schema::create('outlet_user', function (Blueprint $table) {
-            $table->foreignUuid('user_id');
+            $table->foreignUuid('employee_id')->constrained('users');
             $table->foreignUlid('outlet_id');
             $table->foreignUlid('role_id');
             $table->timestamps();

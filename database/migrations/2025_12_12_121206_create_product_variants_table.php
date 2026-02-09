@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('product_id')->references('id')->on('products');
+            $table->string('sku')->unique();
             $table->string('variant_name');
             $table->text('description')->nullable();
             $table->bigInteger('harga_awal')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->boolean('is_variant')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

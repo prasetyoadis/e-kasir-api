@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payment_callbacks', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('payment_request_id');
+            $table->ulid('id')->primary();
+            $table->foreignUlid('payment_request_id');
             $table->json('raw_payload');
             $table->string('status');
             $table->enum('source', ['gateway', 'system', 'admin']);

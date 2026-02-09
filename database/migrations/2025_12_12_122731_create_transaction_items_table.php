@@ -12,13 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_items', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('transaction_id');
+            $table->ulid('id')->primary();
             $table->foreignUlid('product_variant_id');
-            $table->integer('quantity');
             $table->bigInteger('harga_jual');
-            $table->bigInteger('total');
-            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

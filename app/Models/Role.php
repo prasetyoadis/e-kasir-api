@@ -40,10 +40,20 @@ class Role extends Model
      * 
      */
     public function users() {
-        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id');
+        return $this->belongsToMany(
+            User::class, 
+            'role_user', 
+            'role_id', 
+            'user_id'
+        )->withTimestamps();
     }
     public function permissions() {
-        return $this->belongsToMany(Permission::class, 'permission_role', 'permission_id', 'role_id');
+        return $this->belongsToMany(
+            Permission::class, 
+            'permission_role', 
+            'permission_id', 
+            'role_id'
+        )->withTimestamps();
     }
     
 }
