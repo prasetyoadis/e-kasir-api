@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('subscription_status', ['active','pending','inactive']);
             $table->timestamp('valid_from');
             $table->timestamp('valid_to');
+            $table->integer('ppn_percent');
+            $table->integer('service_percent');
             $table->timestamps();
         });
 

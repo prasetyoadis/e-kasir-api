@@ -14,16 +14,22 @@ return new class extends Migration
         Schema::create('transaction_cart', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignUlid('transaction_id');
-            $table->integer('quantity')->nullable();
+            $table->integer('quantity');
             $table->bigInteger('total');
             $table->text('note')->nullable();
             $table->timestamps();
         });
 
         Schema::create('transaction_cart_item', function (Blueprint $table) {
+            $table->ulid('id')->primary();
             $table->foreignUlid('transaction_cart_id')->references('id')->on('transaction_cart');
             $table->foreignUlid('transaction_item_id');
             $table->integer('quantity');
+            $table->bigInteger('price');
+            $table->integer('discount_percent');
+            $table->bigInteger('line_subtotal');
+            $table->bigInteger('line_discount');
+            $table->bigInteger('line_total_before_tax');
             $table->timestamps();
         });
     }

@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignUlid('transaction_id');
             $table->foreignUlid('payment_method_id');
             $table->bigInteger('amount');
+            $table->bigInteger('paid_amount');
+            $table->bigInteger('change_amount');
             $table->enum('status', ['PENDING','WAITING','PAID','FAILED','EXPIRED']);
-            $table->string('external_id')->nullable();
+            $table->string('approval_code');
+            $table->string('external_id');
             $table->string('external_payment_url')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();

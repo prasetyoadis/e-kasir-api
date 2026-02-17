@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->string('order_num')->unique();
-            $table->foreignUuid('created_by')->constrained('users');
+            $table->foreignUuid('created_by');
             $table->foreignUlid('outlet_id');
-            $table->string('customer_name');
-            $table->bigInteger('discount')->default(0);
-            $table->bigInteger('tax')->default(0);
+            $table->string('customer_name')->nullable();
             $table->bigInteger('subtotal')->default(0);
-            $table->enum('payment_method', ['cash','qris','transfer','invoice'])->nullable();
-            $table->enum('status', ['DRAFT', 'PENDING','PAID','COMPLATE','CANCELED','REFUNDED'])->default('DRAFT');
+            $table->bigInteger('item_discount_total')->default(0);
+            $table->bigInteger('global_discount_total')->default(0);
+            $table->bigInteger('net_amount')->default(0);
+            $table->integer('tax_percent_total')->default(0);
+            $table->bigInteger('tax_amount')->default(0);
+            $table->enum('payment_method', ['cash','qris','card'])->nullable();
+            $table->enum('status', ['DRAFT', 'PENDING','PAID', 'COMPLETED', 'CANCELED','REFUNDED'])->default('DRAFT');
             $table->timestamps();
         });
     }
